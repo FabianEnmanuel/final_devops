@@ -16,9 +16,5 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Instalar dependencias
-        run: |
-          pip install unittest
-
       - name: Ejecutar pruebas unitarias
         run: python test.py
