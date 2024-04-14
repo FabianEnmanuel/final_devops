@@ -2,22 +2,24 @@ name: Deploy to Surge
 
 on:
   push:
-    branches:
-      - main
+    branches: ['*']  # Se ejecutará cada vez que se realice un push a cualquier rama
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
+    - name: Verificar código
       uses: actions/checkout@v2
 
-    - name: Build and Deploy
+    - name: Instalar Surge
       run: |
-        # Configurar Surge.sh
         npm install --global surge
-        surge token <SURGE_API_KEY> 
 
-        # Desplegar en Surge.sh
-        surge --project ./ --domain <SURGE_SUBDOMAIN>.surge.sh 
+    - name: Desplegar a Surge
+      run: |
+        # Realizar despliegue a Surge
+        surge . --domain tu-subdominio.surge.sh
+      env:
+        # Proporciona tu token de acceso a Surge como una variable de entorno segura
+        SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
